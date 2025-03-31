@@ -1,21 +1,34 @@
 variable "project_id" {
-  type        = string
   description = "GCPプロジェクトID"
+  type        = string
 }
 
 variable "region" {
+  description = "GCPリージョン"
   type        = string
-  description = "リソースをデプロイするリージョン"
-  default     = "asia-northeast1"
 }
 
 variable "zone" {
+  description = "GCPゾーン"
   type        = string
-  description = "リソースをデプロイするゾーン"
-  default     = "asia-northeast1-a"
+}
+
+variable "instance_name" {
+  description = "VMインスタンス名"
+  type        = string
+}
+
+variable "machine_type" {
+  description = "VMマシンタイプ"
+  type        = string
+}
+
+variable "boot_disk_size" {
+  description = "ブートディスクサイズ（GB）"
+  type        = number
 }
 
 variable "my_ip_cidr" {
+  description = "SSH接続を許可するIPアドレス（CIDR形式）"
   type        = string
-  description = "SSHアクセスを許可するIPアドレス（CIDR形式）"
 } 

@@ -1,4 +1,16 @@
-project_id = "your-gcp-project-id"
+# GCPプロジェクト設定
+project_id = "your-project-id"
 region     = "asia-northeast1"
 zone       = "asia-northeast1-a"
-my_ip_cidr = "xxx.xxx.xxx.xxx/32"  # あなたのグローバルIPアドレスをCIDR形式で記入 
+
+# インスタンス設定
+instance_name = "dev-vm"
+machine_type  = "e2-standard-4"
+boot_disk_size = 50
+
+# ネットワーク設定
+my_ip_cidr = "your-ip-address/32"
+
+# タグ設定
+environment = "development"
+project     = "dev-environment" 

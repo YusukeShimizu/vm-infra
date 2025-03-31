@@ -21,6 +21,29 @@
 6. [設定変更方法](docs/configuration.md)
 7. [トラブルシューティング](docs/troubleshooting.md)
 
+## 環境変数の設定
+
+1. 環境変数テンプレートのコピー
+```bash
+cp .env.example .env
+```
+
+2. `.env`ファイルを編集し、以下の情報を設定：
+   - GCPプロジェクトID
+   - リージョンとゾーン
+   - インスタンス名とマシンタイプ
+   - あなたのIPアドレス（CIDR形式）
+   - サービスアカウントキーのパス
+   - SSH設定
+   - GitHub設定
+
+3. Terraform変数の設定
+```bash
+cp terraform.tfvars.example terraform.tfvars
+```
+
+4. `terraform.tfvars`を編集し、必要な値を設定
+
 ## クイックスタート
 
 ```bash
@@ -28,10 +51,11 @@
 git clone https://github.com/yourusername/gce-dev-environment.git
 cd gce-dev-environment
 
-# 2. 環境変数を設定（必要に応じて）
-export GOOGLE_APPLICATION_CREDENTIALS="/path/to/your-key-file.json"
+# 2. 環境変数の設定
+cp .env.example .env
+# .envを編集して必要な値を設定
 
-# 3. 設定ファイルの準備
+# 3. Terraform変数の設定
 cp terraform.tfvars.example terraform.tfvars
 # terraform.tfvarsを編集して必要な値を設定
 
@@ -39,13 +63,7 @@ cp terraform.tfvars.example terraform.tfvars
 terraform init
 terraform apply
 
-# 5. SSH設定を追加
-echo "Host dev-vm
-  HostName $(terraform output -raw dev_vm_public_ip)
-  User ubuntu
-  IdentityFile ~/.ssh/id_rsa" >> ~/.ssh/config
-
-# 6. VSCodeでRemote-SSH拡張機能を使用して接続
+# 5. VSCodeでRemote-SSH拡張機能を使用して接続
 code .
 # その後、左下の緑色のアイコンをクリックして「Remote-SSH: Connect to Host...」から「dev-vm」を選択
 ```
@@ -59,6 +77,13 @@ code .
 - [VSCode](https://code.visualstudio.com/download) と [Remote-SSH拡張機能](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-ssh) がインストールされていること
 - SSHキーペアが生成されていること
 - `curl` コマンドが利用できること
+
+## セキュリティに関する注意事項
+
+- サービスアカウントキーやSSH秘密鍵などの機密情報は、リポジトリにコミットしないでください
+- 環境変数やシークレット情報は、`.env`ファイルや`terraform.tfvars`で管理し、これらは`.gitignore`に含まれています
+- 本番環境の認証情報は、適切なシークレット管理サービスを使用してください
+- IPアドレスなどの環境固有の設定値は、`.env`ファイルで管理し、リポジトリにはコミットしないでください
 
 ## ライセンス
 
