@@ -16,7 +16,6 @@ terraform.tfvars
 
 # 環境変数
 .env
-.env.*
 
 # ログファイル
 *.log

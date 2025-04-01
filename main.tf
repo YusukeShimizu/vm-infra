@@ -61,8 +61,3 @@ resource "google_compute_instance" "dev_vm" {
 
   metadata_startup_script = file("startup-script.sh")
 }
-
-# 外部IPアドレスの出力
-output "dev_vm_public_ip" {
-  value = google_compute_instance.dev_vm.network_interface[0].access_config[0].nat_ip
-} 
